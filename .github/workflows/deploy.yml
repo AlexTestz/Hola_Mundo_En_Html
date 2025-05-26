@@ -1,3 +1,4 @@
+
 name: Deploy to DigitalOcean App Platform
 
 on:
@@ -19,4 +20,3 @@ jobs:
         uses: digitalocean/app_action/deploy@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_TOKEN }}
-
