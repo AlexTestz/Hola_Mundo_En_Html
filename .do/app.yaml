@@ -1,10 +1,10 @@
 name: mi-app-estatica
-services:
-  - name: web
-    static_sites:
-      build_command: ""
-      output_dir: "."
-    source:
-      type: github
-      repo: AlexTestz/Hola_Mundo_En_Html
-      branch: main
+
+static_site:
+  name: web
+  output_dir: "."
+  build_command: ""
+  source:
+    type: github
+    repo: AlexTestz/Hola_Mundo_En_Html
+    branch: main
