@@ -1,4 +1,4 @@
-name: Update App
+name: Deploy to DigitalOcean App Platform
 
 on:
   push:
@@ -8,13 +8,15 @@ permissions:
   contents: read
 
 jobs:
-  deploy-app:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Deploy the app
+
+      - name: Deploy to DigitalOcean
         uses: digitalocean/app_action/deploy@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_TOKEN }}
-          app_spec_location: '.do/app.yaml'
+
