@@ -1,5 +1,9 @@
-name: mi-app-estatica  # Cambia esto por el nombre que quieras para tu app
+name: mi-app-estatica
 services:
   - name: web
     static_sites:
-      - output_dir: .  # La raíz del repo donde está index.html
+      - output_dir: .
+    source:
+      type: github
+      repo: AlexTestz/Hola_Mundo_En_Html
+      branch: main
