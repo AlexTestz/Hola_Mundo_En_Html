@@ -1,22 +1,31 @@
-
-name: Deploy to DigitalOcean App Platform
+name: Build and Deploy to Netlify
 
 on:
   push:
-    branches: [main]
-
-permissions:
-  contents: read
+    branches:
+      - main   # o la rama que uses (por ejemplo "master")
+  pull_request:
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: ubuntu-22.04
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Deploy to DigitalOcean
-        uses: digitalocean/app_action/deploy@v2
+      # Si solo es HTML estático, no necesitas build, sino solo subir la carpeta raíz o donde esté el index.html.
+      # Cambia './dist' por el folder correcto (por ejemplo '.' si está en la raíz)
+      
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
         with:
-          token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+          publish-dir: '.'  # carpeta raíz con tu index.html
+          production-branch: main  # rama principal de tu repo
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy desde GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 5
